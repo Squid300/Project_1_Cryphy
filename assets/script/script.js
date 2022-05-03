@@ -1,8 +1,7 @@
-const buttonEl = $(".select");
-const delbuttonEl = $(".delete");
-const sideEl = $(".test");
-const gifEl = '';
-const formEl = '';
+const buttonEl = $("#select");
+const delbuttonEl = $("#delete");
+const sideEl = $("#info");
+const gifEl = $("#gif");
 let gifsGood = [];
 let gifsBad = [];
 let cryptos = [{"id":"90","symbol":"BTC","name":"Bitcoin","nameid":"bitcoin","rank":1,"price_usd":"38407.31","percent_change_24h":"-1.36","percent_change_1h":"-0.50","percent_change_7d":"-2.83","market_cap_usd":"730003063588.71","volume24":"18370337205.82","volume24_native":"478303.12","csupply":"19006877.00","price_btc":"1.00","tsupply":"19006877","msupply":"21000000"}];
@@ -33,6 +32,7 @@ function drawCrypto(){
     //code for adding crypto array object to list
     for (i=0; i < cryptos.length; i++) {
         sideEl.children().remove();
+        const listEl = document.createElement("ul");
         const name = document.createElement("h3");
         const price = document.createElement("li");
         const changeHour = document.createElement("li");
@@ -44,10 +44,11 @@ function drawCrypto(){
         changeDay.innerHTML = cryptos[i].percent_change_24h;
         changeWeek.innerHTML = cryptos[i].percent_change_7d;
         sideEl.append(name);
-        sideEl.append(price);
-        sideEl.append(changeHour);
-        sideEl.append(changeDay);
-        sideEl.append(changeWeek);
+        sideEl.append(listEl);
+        listEl.append(price);
+        listEl.append(changeHour);
+        listEl.append(changeDay);
+        listEl.append(changeWeek);
     }
 }
 
@@ -64,10 +65,8 @@ function getGif(change){
 
 buttonEl.on("click", function(event){
     event.preventDefault();
-    //take form input for cryptos and time desired
-
-    //store data in cryptos array
-    getOption();
+    console.log("test");
+    // getOption();
     drawCrypto();
     cryptos.push();
     localStorage.setItem("cryptosPerm", JSON.stringify(cryptos));
