@@ -30,7 +30,7 @@
                   placeholder="Search Cryptocurrency"
                   aria-label="Search"
                 />
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                <button id="select" class="btn btn-outline-success my-2 my-sm-0" type="submit">
                   Search
                 </button>
               </form>
@@ -54,16 +54,19 @@
           <div class="columns featured-post is-multiline">
             <div class="column is-12 post">
               <article class="columns featured">
-                <div class="column is-7 post-img ">
-                  <img src="https://giphy.com/embed/wHB67Zkr63UP7RWJsj" width="480" height="337" frameBorder="0" class="giphy-embed" allowFullScreen><p>GIF example</p>
+                <div id="gif" class="column is-7 post-img ">
+                  <img src="" width="480" height="337" frameBorder="0" class="giphy-embed" allowFullScreen><p>GIF example</p>
                 </div>
                 <div class="column is-5 featured-content va">
                   <div>
                     <h3 class="heading post-category">Ticker Name</h3>
                     <h1 class="title post-title">Cryptocurrency Information</h1>
-                    <p class="post-excerpt">This is where the data will be displayed!</p>
+                    <div id="info"></div>
                 </div>
               </article>
             </div>
           </div>
+
+          <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+          <script type="text/javascript" src="./assets/script/script.js"></script>
   </section>
