@@ -15,12 +15,12 @@ if(localStorage.getItem("cryptosPerm") !== null){
 
     for(i = 0; i < cryptosPrev.length; i++){
         const listEl = document.createElement("ul");
-        const name = document.createElement("h3");
+        const name = document.createElement("h2");
         const price = document.createElement("li");
         const changeHour = document.createElement("li");
         const changeDay = document.createElement("li");
         const changeWeek = document.createElement("li");
-        name.innerHTML = "name: " + cryptosPrev[i].name;
+        name.innerHTML = "Name: " + cryptosPrev[i].name;
         price.innerHTML = "Price USD: " + cryptosPrev[i].price_usd;
         changeHour.innerHTML = "Change 1h: " + cryptosPrev[i].percent_change_1h;
         changeDay.innerHTML = "Change 24h: " + cryptosPrev[i].percent_change_24h;
@@ -70,12 +70,12 @@ function drawCrypto(input){
         //checks each object for name match to pull correct crypto info then writes to screen
         if(input == cryptos[0].data[i].name.toLowerCase()){
             const listEl = document.createElement("ul");
-            const name = document.createElement("h3");
+            const name = document.createElement("h2");
             const price = document.createElement("li");
             const changeHour = document.createElement("li");
             const changeDay = document.createElement("li");
             const changeWeek = document.createElement("li");
-            name.innerHTML = "name: " + cryptos[0].data[i].name;
+            name.innerHTML = "Name: " + cryptos[0].data[i].name;
             price.innerHTML = "Price USD: " + cryptos[0].data[i].price_usd;
             changeHour.innerHTML = "Change 1h: " + cryptos[0].data[i].percent_change_1h;
             changeDay.innerHTML = "Change 24h: " + cryptos[0].data[i].percent_change_24h;
@@ -118,9 +118,10 @@ function getGif(change){
 buttonEl.on("click", function(event){
     event.preventDefault();
     const x = searchEl.val();
-    getOption();
+    // getOption();
     getApi(x);
     getGif();
+    searchEl.val(searchEl.placeholder);
 })
 
 delbuttonEl.on("click", function(){
