@@ -2,12 +2,13 @@ const buttonEl = $("#select");
 const delbuttonEl = $("#delete");
 const searchEl = $("#coinSearch")
 const sideEl = $("#info");
-const gifEl = $("#gif");
+const gifEl = $("#gifDiv");
 let gifsGood = [];
 let gifsBad = [];
 let cryptos = [];
 let cryptosPrev = [];
 let time;
+let change;
 
 //checks if coins have been stored, parses to array if they have, then draws array to screen.
 if(localStorage.getItem("cryptosPerm") !== null){
@@ -34,21 +35,6 @@ if(localStorage.getItem("cryptosPerm") !== null){
     }
 }
 
-function getOption() {
-    selectElement = document.querySelector('.form-select');
-    output = selectElement.value;
-    console.log(output);
-
-    //checks what time user selects
-    if(output == 0){
-        time = cryptos[0].percent_change_1h;
-    }else if(output == 1){
-        time = cryptos[0].percent_change_24h;
-    }else if(output == 2){
-        time = cryptos[0].percent_change_7d;
-    }
-}
-
 //pulls crypto list then draws to screen
 function getApi(x) {
     var requestUrl = 'https://api.coinlore.net/api/tickers/';
@@ -62,6 +48,48 @@ function getApi(x) {
         drawCrypto(x);
       });
   }
+
+function randomGif(q){
+    const apiKey = 'asFMu6rJdA39jyE6ZwygWoqWWaPprdRv'
+    const giphyUrl = 'https://api.giphy.com/v1/gifs/search?api_key=' + apiKey + '&q=' + q;
+    
+    fetch(giphyUrl).then(function (res) {
+        return res.json()
+    }).then(function (json) {
+        console.log(json)
+       
+        let url;
+        let resultsHTML = document.createElement('img');
+        const random = Math.floor(Math.random() * json.data.length)
+        const randomImg = json.data[random];
+    
+    
+        url = randomImg.images.fixed_width.url
+    
+        resultsHTML.setAttribute('src', url)
+        resultsHTML.setAttribute('width', '200')
+        gifEl.children().remove();
+        gifEl.append(resultsHTML);
+    }).catch(function (err) {
+        console.log(err)
+    })
+}
+
+function getOption() {
+    selectElement = document.querySelector('select');
+    output = selectElement.value;
+    console.log(output);
+    x = cryptosPrev.length - 1;
+
+    //checks what time user selects
+    if(output == "1 Hour"){
+        time = cryptosPrev[x].percent_change_1h;
+    }else if(output == "1 Day"){
+        time = cryptosPrev[x].percent_change_24h;
+    }else if(output == "1 Week"){
+        time = cryptosPrev[x].percent_change_7d;
+    }
+}
 
 function drawCrypto(input){
     console.log(input);
@@ -97,30 +125,30 @@ function drawCrypto(input){
                     percent_change_7d: cryptos[0].data[i].percent_change_7d
                 }
             )
+            getOption();
+            getGif();
+            randomGif(change);
             localStorage.setItem("cryptosPerm", JSON.stringify(cryptosPrev));
         }
     }
 }
 
-function getGif(change){
+function getGif(){
+    console.log(time);
     //deciding what kind of gif
     if(time < 0){
-        console.log("bad");
-        gifEl.src = gifsBad[Math.floor(Math.random() * gifsBad.length)];
+        change = "bad";
     }else if(time > 0){
-        console.log("good");
-        gifEl.src = gifsGood[Math.floor(Math.random() * gifsGood.length)]
+        change = "good";
     }else{
-        console.log("something went wrong")
+        console.log("oops");
     }
 }
 
 buttonEl.on("click", function(event){
     event.preventDefault();
     const x = searchEl.val();
-    // getOption();
     getApi(x);
-    getGif();
     searchEl.val(searchEl.placeholder);
 })
 
@@ -128,4 +156,5 @@ delbuttonEl.on("click", function(){
     localStorage.clear();
     sideEl.children().remove();
 })
+
 

@@ -24,16 +24,15 @@
               </a>
             </div>
             <form id="gif-form" class="form-inline my-3 my-lg-0">
-                <input
-                  class="search form-control mr-sm-2"
-                  type="text"
-                  placeholder="Search Cryptocurrency"
-                  aria-label="Search"
-                  id="coinSearch";
-                />
-                <button id="select" class="btn btn-outline-success my-2 my-sm-0" type="submit">
-                  Search
-                </button>
+              <input class="input is-focused" type="text" placeholder="Cryptocurrency Search" id="coinSearch">
+              <div class="select">
+                <select>
+                  <option>1 Hour</option>
+                  <option>1 Day</option>
+                  <option>1 Week</option>
+                </select>
+              </div>
+              <button id="select" class="button is-dark">Submit</button>
               </form>
             </div>
           </div>
@@ -55,8 +54,8 @@
           <div class="columns featured-post is-multiline">
             <div class="column is-12 post">
               <article class="columns featured">
-                <div class="column is-7 post-img ">
-                <img src = "" width="480" height="337" frameBorder="0" class="giphy-embed" allowFullScreen><p>GIF example</p>
+                <div class="column is-7 post-img " id="gifDiv">
+                  
                 </div>
                 <div class="column is-5 featured-content va">
                   <div>
