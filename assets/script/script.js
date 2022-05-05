@@ -1,48 +1,30 @@
 const buttonEl = $("#select");
 const delbuttonEl = $("#delete");
+const searchEl = $("#coinSearch")
 const sideEl = $("#info");
 const gifEl = $("#gif");
 let gifsGood = [];
 let gifsBad = [];
-let cryptos = [{"id":"90","symbol":"BTC","name":"Bitcoin","nameid":"bitcoin","rank":1,"price_usd":"38407.31","percent_change_24h":"-1.36","percent_change_1h":"-0.50","percent_change_7d":"-2.83","market_cap_usd":"730003063588.71","volume24":"18370337205.82","volume24_native":"478303.12","csupply":"19006877.00","price_btc":"1.00","tsupply":"19006877","msupply":"21000000"}];
-let time = '';
+let cryptos = [];
+let cryptosPrev = [];
+let time;
 
 //checks if coins have been stored, parses to array if they have, then draws array to screen.
 if(localStorage.getItem("cryptosPerm") !== null){
-    cryptos = JSON.parse(localStorage["cryptosPerm"]);
-    drawCrypto();
-}
+    cryptosPrev = JSON.parse(localStorage["cryptosPerm"]);
 
-function getOption() {
-    selectElement = document.querySelector('.form-select');
-    output = selectElement.value;
-    console.log(output);
-
-    //checks what time user selects
-    if(output == 1){
-        time = cryptos[0].percent_change_1h;
-    }else if(output == 2){
-        time = cryptos[0].percent_change_24h;
-    }else if(output == 3){
-        time = cryptos[0].percent_change_7d;
-    }
-}
-
-function drawCrypto(){
-    //code for adding crypto array object to list
-    for (i=0; i < cryptos.length; i++) {
-        sideEl.children().remove();
+    for(i = 0; i < cryptosPrev.length; i++){
         const listEl = document.createElement("ul");
         const name = document.createElement("h3");
         const price = document.createElement("li");
         const changeHour = document.createElement("li");
         const changeDay = document.createElement("li");
         const changeWeek = document.createElement("li");
-        name.innerHTML = cryptos[i].name;
-        price.innerHTML = cryptos[i].price_usd;
-        changeHour.innerHTML = cryptos[i].percent_change_1h;
-        changeDay.innerHTML = cryptos[i].percent_change_24h;
-        changeWeek.innerHTML = cryptos[i].percent_change_7d;
+        name.innerHTML = "name: " + cryptosPrev[i].name;
+        price.innerHTML = "Price USD: " + cryptosPrev[i].price_usd;
+        changeHour.innerHTML = "Change 1h: " + cryptosPrev[i].percent_change_1h;
+        changeDay.innerHTML = "Change 24h: " + cryptosPrev[i].percent_change_24h;
+        changeWeek.innerHTML = "Change 7d: " + cryptosPrev[i].percent_change_7d;
         sideEl.append(name);
         sideEl.append(listEl);
         listEl.append(price);
@@ -52,24 +34,93 @@ function drawCrypto(){
     }
 }
 
+function getOption() {
+    selectElement = document.querySelector('.form-select');
+    output = selectElement.value;
+    console.log(output);
+
+    //checks what time user selects
+    if(output == 0){
+        time = cryptos[0].percent_change_1h;
+    }else if(output == 1){
+        time = cryptos[0].percent_change_24h;
+    }else if(output == 2){
+        time = cryptos[0].percent_change_7d;
+    }
+}
+
+//pulls crypto list then draws to screen
+function getApi(x) {
+    var requestUrl = 'https://api.coinlore.net/api/tickers/';
+  
+    fetch(requestUrl)
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        cryptos.push(data);
+        drawCrypto(x);
+      });
+  }
+
+function drawCrypto(input){
+    console.log(input);
+    //goes through each object in array
+    for (i=0; i < 100; i++) {
+        //checks each object for name match to pull correct crypto info then writes to screen
+        if(input == cryptos[0].data[i].name.toLowerCase()){
+            const listEl = document.createElement("ul");
+            const name = document.createElement("h3");
+            const price = document.createElement("li");
+            const changeHour = document.createElement("li");
+            const changeDay = document.createElement("li");
+            const changeWeek = document.createElement("li");
+            name.innerHTML = "name: " + cryptos[0].data[i].name;
+            price.innerHTML = "Price USD: " + cryptos[0].data[i].price_usd;
+            changeHour.innerHTML = "Change 1h: " + cryptos[0].data[i].percent_change_1h;
+            changeDay.innerHTML = "Change 24h: " + cryptos[0].data[i].percent_change_24h;
+            changeWeek.innerHTML = "Change 7d: " + cryptos[0].data[i].percent_change_7d;
+            sideEl.append(name);
+            sideEl.append(listEl);
+            listEl.append(price);
+            listEl.append(changeHour);
+            listEl.append(changeDay);
+            listEl.append(changeWeek);
+
+            //stores matched coin in array and stores in local storage
+            cryptosPrev.push(
+                {
+                    name: cryptos[0].data[i].name,
+                    price_usd: cryptos[0].data[i].price_usd,
+                    percent_change_1h: cryptos[0].data[i].percent_change_1h,
+                    percent_change_24h: cryptos[0].data[i].percent_change_24h,
+                    percent_change_7d: cryptos[0].data[i].percent_change_7d
+                }
+            )
+            localStorage.setItem("cryptosPerm", JSON.stringify(cryptosPrev));
+        }
+    }
+}
+
 function getGif(change){
     //deciding what kind of gif
     if(time < 0){
-        //bad gif
+        console.log("bad");
+        gifEl.src = gifsBad[Math.floor(Math.random() * gifsBad.length)];
     }else if(time > 0){
-        //good gif
+        console.log("good");
+        gifEl.src = gifsGood[Math.floor(Math.random() * gifsGood.length)]
+    }else{
+        console.log("something went wrong")
     }
-
-    //append gipphy to html
 }
 
 buttonEl.on("click", function(event){
     event.preventDefault();
-    console.log("test");
-    // getOption();
-    drawCrypto();
-    cryptos.push();
-    localStorage.setItem("cryptosPerm", JSON.stringify(cryptos));
+    const x = searchEl.val();
+    getOption();
+    getApi(x);
+    getGif();
 })
 
 delbuttonEl.on("click", function(){
