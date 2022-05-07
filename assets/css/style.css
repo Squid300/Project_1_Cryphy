@@ -24,68 +24,83 @@ hr {
 }
 
 .hero {
-  background: #060606;
+  background: #000000;
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
   align-items: center;
 }
 
 .title,
 .subtitle {
   color: white;
-  font-size: 50px;
+  font-size: 40px;
 }
 
 .navbar .navbar-item {
   color: #e4e2ff;
+  
 }
 
 .navbar .navbar-item.is-active {
   color: #e4e2ff;
-  font-weight: 700;
+  font-weight: 500;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .navbar .navbar-item:hover {
   background: transparent;
   color: white;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .navbar .navbar-item a {
-  margin-left: 1rem;
   color: #e4e2ff;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.blog-posts {
-  min-height: 100vh;
+.gif-posts {
+  min-height: 400px;
   background: #191b1f;
-  padding-top: 4rem;
-  padding-bottom: 10rem;
+  padding-top: 2rem;
+  padding-bottom: 3rem;
 }
 
-.blog-posts article {
+.gif-posts article {
   padding: 1.5rem;
 }
 
-.blog-posts .post img {
+.gif-posts .post .gifDiv {
   border-radius: 6px;
 }
 
-.blog-posts .post .post-category {
+.gif-posts .post .post-category {
   color: #3b7adf;
 }
 
-.blog-posts .post .post-title {
-  font-size: 2.2rem;
+.gif-posts .post .post-title {
+  font-size: 3rem;
 }
 
-.blog-posts .post .post-excerpt {
+.gif-posts .post .post-excerpt {
   line-height: 1.5rem;
   letter-spacing: .03rem;
-  font-size: 1.2rem;
+  font-size: 2rem;
   font-family: 'IBM Plex Serif', serif;
   color: #92a3ab;
 }
 
-.blog-posts .post .featured .featured-image img {
-  height: 380px;
+.gif-posts .post .featured .featured-image img {
+  height: 500px;
 }
 
 .search {
@@ -99,7 +114,7 @@ hr {
   border: 3px solid #00B4CC;
   border-right: none;
   padding: 5px;
-  height: 20px;
+  height: 30px;
   border-radius: 5px 0 0 5px;
   outline: none;
   color: #9DBFAF;
@@ -112,18 +127,24 @@ hr {
 .searchButton {
   width: 40px;
   height: 36px;
-  border: 1px solid #00B4CC;
+  border: 2px solid #00B4CC;
   background: #00B4CC;
   text-align: center;
   color: #fff;
-  border-radius: 0 5px 5px 0;
+  border-radius: 5px 5px 5px 0;
   cursor: pointer;
+  font-size: 30px;
+}
+
+.info {
+  font-family: sans-serif;
   font-size: 20px;
+  color: rgb(149, 175, 228);
 }
 
 /*Resize the wrap to see the search bar change!*/
 .wrap{
-  width: 30%;
+  width: 40%;
   position: absolute;
   top: 50%;
   left: 50%;
