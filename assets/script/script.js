@@ -137,9 +137,9 @@ function getGif(){
     console.log(time);
     //deciding what kind of gif
     if(time < 0){
-        change = "bad";
+        change = "negative";
     }else if(time > 0){
-        change = "good";
+        change = "positive";
     }else{
         console.log("oops");
     }
