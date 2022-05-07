@@ -12,56 +12,55 @@
   </head>
 
   <section class="hero is-small">
-    <div class="hero-head">
+    <div class="hero-head is-small">
       <div class="container">
         <nav class="navbar" role="navigation" aria-label="main navigation">
           <div id="navbarBasicExample" class="navbar-menu">
-            <div class="navbar-start">
-              <a class="navbar-item is-active">
-                Home
-              </a>
-              <a class="navbar-item">
-              </a>
-            </div>
-            <form id="gif-form" class="form-inline my-3 my-lg-0">
-              <input class="input is-focused" type="text" placeholder="Cryptocurrency Search" id="coinSearch">
-              <div class="select">
-                <select>
-                  <option>1 Hour</option>
-                  <option>1 Day</option>
-                  <option>1 Week</option>
-                </select>
-              </div>
-              <button id="select" class="button is-dark">Submit</button>
-              </form>
+
             </div>
           </div>
         </nav>
       </div>
     </div>
-    <div class="hero-body">
+    <div class="hero-body is-small">
       <div class="container has-text-centered">
         <h1 class="subtitle">
           CRYPHY
         </h1>
       </div>
+      <form id="gif-form" class="form-inline my-5 my-lg-0">
+        <div class="navbar">
+        <input class="input is-focused is-responsive" type="text" placeholder="Cryptocurrency Search" id="coinSearch">
+      </div>
+        <div class="select">
+          <select>
+            <option>1 Hour</option>
+            <option>1 Day</option>
+            <option>1 Week</option>
+          </select>
+        </div>
+        <button id="select" class="button is-dark" type="submit">Submit</button>
+        <button id="delete" class="button is-danger is-outlined">Clear</button>
+        </form>
     </div>
   </section>
-  <section class="blog-posts">
+  <section class="gif-posts">
     <div class="container">
       <div class="columns">
-        <div class="column is-10 is-offset-1">
+        <div class="column is-9 is-offset-1">
           <div class="columns featured-post is-multiline">
             <div class="column is-12 post">
               <article class="columns featured">
-                <div class="column is-7 post-img " id="gifDiv">
-                  
+                <div class="column is-7 post-img" id="gifDiv" frameBorder="10" allowFullScreen>
+  
                 </div>
                 <div class="column is-5 featured-content va">
                   <div>
-                    <h3 class="heading post-category">Ticker Name</h3>
-                    <h1 class="title post-title">Cryptocurrency Information</h1>
+                    
+                    <h3 class="title post-title">Crypto Info</h3>
+                    <div class="info">
                     <div id="info"></div>
+                    </div>
                 </div>
               </article>
             </div>
